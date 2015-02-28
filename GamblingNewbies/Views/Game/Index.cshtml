@@ -1,0 +1,229 @@
+﻿<style>
+    #forumcontainer {
+        background-color: rgba(154, 155, 171, 0.7);
+        color: black;
+        border-radius: 10px;
+        width:90%;
+        margin-left:5%;
+        padding-top:10px;
+        padding-bottom:20px;
+    }
+    #forumheading {
+        padding-left: 10px;
+        color: white;
+    }
+    #forumtable {
+        padding: 20px;
+        padding-left: 10%;
+        padding-right: 10%;
+        color: rgba(0, 0, 0, 0.6);
+    }
+
+    body {
+        padding-top: 5px;
+        padding-bottom: 20px;
+        background-image: url("/Content/Rock_Paper_Scissor_Hold.jpg");
+        background-position: 50% 5%;
+        background-color: rgba(0, 0, 0,1);
+        background-repeat: no-repeat;
+        /*background-attachment:fixed;*/
+        color: rgba(255, 255, 255, 0.8);
+    }
+    .btn.btn-primary {
+        background-color: rgba(92, 92, 126, 1);
+        color: black;
+        border-color: black;
+    }
+
+        .btn.btn-primary:hover {
+            background-color: rgba(50, 20, 61, 1);
+            color: white;
+            border-color: white;
+        }
+
+    a.btn.btn-primary.btn-lg {
+        background-color: rgba(92, 92, 126, 1);
+        color: black;
+        border-color: black;
+    }
+
+        a.btn.btn-primary.btn-lg:hover {
+            background-color: rgba(50, 20, 61, 1);
+            color: white;
+            border-color: white;
+        }
+
+    a {
+        color: white;
+    }
+
+        a:hover {
+            color: #563d7c;
+            text-underline-position: left;
+            text-decoration: none;
+        }
+
+    .tableHeader {
+        width:100%;
+        margin-top:10px;
+        margin-bottom:0px;
+    }
+
+    .table {
+        width: 100%;
+        margin-bottom: 0px;
+    }
+    #divheader {
+        height: 400px;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+</style>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<script>
+    $(document).ready(poll);
+    function poll() {
+        setTimeout(function () {
+            $.ajax({
+                url: "/Game/UpdateOnlineUsers",
+                type: "get",
+                success: function (users) {
+                    $("#UsersTable").empty();
+                    $.each(users, function (i, user) {
+                        $("#UsersTable").append("<tr><td><a href='/Profile/DearUser?id=" + user.Username + "'>" + user.Username + "</a></td></tr>");
+                    });
+                },
+                dataType: "json",
+                complete: poll,
+                timeout: 500
+            })
+        }, 1000);
+    }
+</script>
+<script>
+    $(document).ready(poll1);
+    function poll1() {
+        setTimeout(function () {
+            var currentUser = $("#loginUser").text();
+                $.ajax({
+                    url: "/Game/allTableInfo/" + $("#choice").val(),
+                    type: "get",
+                    success: function (users) {
+                        $("#tableinfo").empty();
+                    $("#tableinfo").append('<table class="table table-hover">');
+                    $.each(users, function (i, user) {
+                            $("#tableinfo").append("<tr>");
+                        $("#tableinfo").append("<td class='titleNameWidth'>" + user.Name + "</td>");
+                        $("#tableinfo").append("<td class='userNameWidth'><a href='/Profile/DearUser?id=" + user.Username1 + "'>" + user.Username1 + "</a></td>");
+                        $("#tableinfo").append("<td class='userNameWidth'><a href='/Profile/DearUser?id=" + user.Username2 + "'>" + user.Username2 + "</a></td>");
+                        $("#tableinfo").append("<td class='userNameWidth'>" + user.Cost + "</a></td>");
+
+                        if (user.Winner != null) {
+                            $("#tableinfo").append("<td align='right' class='userJoinWidth'><a href='/Table/Result/" + user.ID + "'>result</a></td>");
+                        }
+                        else if (user.Username1 && user.Username2 && user.Username1 != currentUser && user.Username2 != currentUser) {
+                            $("#tableinfo").append("<td align='right' class='userJoinWidth'>full</td>");
+                        }
+                        else {
+                            $("#tableinfo").append("<td align='right' class='userJoinWidth'><a class='btn btn-primary btn-sm' href='/Table/Join/" + user.ID + "'>join</a></td>");
+                        }
+
+                            $("#tableinfo").append("</tr>");
+                        });
+                    $("#tableinfo").append('</table>');
+                    },
+                    dataType: "json",
+                    complete: poll1,
+                    timeout: 500
+                })
+            }, 1000);    
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#choice").onclick(function () {
+            $.ajax({
+                url: "/Game/allTableInfo/" + $("#choice").val(),
+                type: "get",
+                success: function (users) {
+                    $("#tableinfo").empty();
+                    $("#tableinfo").append('<table class="table table-hover">');
+                    $.each(users, function (i, user) {
+                        $("#tableinfo").append("<tr>");
+                        $("#tableinfo").append("<td class='titleNameWidth'>" + user.Name + "</td>");
+                        $("#tableinfo").append("<td class='userNameWidth'><a href='/Profile/DearUser?id=" + user.Username1 + "'>" + user.Username1 + "</a></td>");
+                        $("#tableinfo").append("<td class='userNameWidth'><a href='/Profile/DearUser?id=" + user.Username2 + "'>" + user.Username2 + "</a></td>");
+                        $("#tableinfo").append("<td class='userNameWidth'>" + user.Cost + "</a></td>");
+
+                        if (user.Username1 && user.Username2 && user.Username1 != currentUser && user.Username2 != currentUser) {
+                            $("#tableinfo").append("<td align='right' class='userJoinWidth'>full</td>");
+                        }
+                        else {
+                            $("#tableinfo").append("<td align='right' class='userJoinWidth'><a class='btn btn-primary btn-sm' href='/Table/Join/" + user.ID + "'>join</a></td>");
+                        }
+
+                        $("#tableinfo").append("</tr>");
+                    });
+                    $("#tableinfo").append('</table>');
+                },
+                dataType: "json",
+                timeout: 500
+            })
+        });
+    });
+</script>
+
+<head>
+    <link href="~/Content/gameIndexStyle.css" rel="stylesheet" />
+</head>
+
+@model IEnumerable<GamblingNewbies.Models.User>
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "index";
+    ViewBag.GameCreate = "/Game/NewGame";
+}
+
+
+    <div id="divheader"></div>
+    <div id="loginUser" style="visibility:hidden;">@User.Identity.GetUserName()</div>
+    <div id="forumcontainer">
+        <center><h2><b>Gambling Hall</b></h2></center>
+        <div id="ErrorDiv" style="margin-left:10%;">
+            <font color="red">@ViewBag.TableErrorLabel</font>
+        </div>
+        <div id="containertable" style="padding-left:0%;width:100%;padding:2%;height:1500px;padding-bottom:0%;">
+            <div id="outertable" style="height:100%"><center>
+    <h4>Active Users</h4>
+    <div id="UsersTable"></div>
+</center>
+            </div>
+
+            <div id="innertable" style="height:100%;">
+                <p><a href="@ViewBag.GameCreate" class="btn btn-primary btn-lg"> +Create New Game</a></p>
+                <select id="choice">
+                    <option value="@ViewBag.choice1">@ViewBag.choice1</option>
+                    <option value="@ViewBag.choice2" selected>@ViewBag.choice2</option>
+                    <option value="@ViewBag.choice3">@ViewBag.choice3</option>
+                </select>
+
+                <div class="tableinfo">
+                    <table class="tableHeader">
+                        <tr>
+                            <td class="titleNameWidth"><b>Game Name</b></td>
+                            <td class="userNameWidth"><b>Player1</b></td>
+                            <td class="userNameWidth"><b>Player2</b></td>
+                            <td class="userNameWidth"><b>Cost</b></td>
+                            <td class="userJoinWidth"><b>Action</b></td>
+                        </tr>
+                    </table>
+                    <hr />
+                </div>
+
+                <div id="tableinfo"></div>
+            </div>
+        </div>
+    </div>

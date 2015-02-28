@@ -1,0 +1,90 @@
+﻿@model IEnumerable<GamblingNewbies.Models.Thread>
+@using Microsoft.AspNet.Identity
+
+@{
+    ViewBag.SectionCreate = "/Forum/NewThread/?section_id=" + @ViewBag.section_id;
+}
+
+<style>
+    #divheader {
+        height: 70px;
+        /*background-image: url('/Content/Aboutgroup.JPG');*/
+        background-position:center;
+        background-repeat:no-repeat;
+    }
+    #forumcontainer {
+        background-color: rgba(154, 155, 171, 0.9);
+        color: black;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 10px;
+        width:70%;
+        margin-left:15%;
+    }
+
+    #forumheading {
+        padding-left: 10px;
+        color: white;
+    }
+    #forumtable {
+        padding: 20px;
+        padding-left: 10%;
+        padding-right: 10%;
+        color: rgba(0, 0, 0, 0.6);
+    }
+    a.btn.btn-primary.btn-lg {
+        background-color: rgba(92, 92, 126, 1);
+        color: black;
+        border-color: black;
+    }
+    a.btn.btn-primary.btn-lg:hover {
+        background-color: rgba(50, 20, 61, 1);
+        color: white;
+        border-color: white;
+    }
+    a {
+        color: black;
+    }
+
+        a:hover {
+            color: #563d7c;
+            text-underline-position: left;
+            text-decoration: none;
+        }
+        h2 {
+            padding-top:0px;
+            margin-top:0px;
+        }
+</style>
+
+
+<div id="divheader"></div>
+
+<div id="forumcontainer">
+    <center><h2><b>@ViewBag.Title</b></h2></center>
+
+    <p><a href="@ViewBag.SectionCreate" class="btn btn-primary btn-lg"> +Create New Thread</a></p>
+
+    <table class="table table-hover">
+        <tr>
+            <th width="70%">
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th width="30%"></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="padding-left:5%;font-size:small;font-weight:bold;">
+                    @Html.ActionLink(item.Title, "Topic", "Thread", new { id = Convert.ToString(item.ID) }, null)
+                </td>
+                <td style="font-size:small;">
+                    <a href="/Profile/DearUser/@Html.DisplayFor(modelItem => item.UserID)"><b>@Html.DisplayFor(modelItem => item.UserID)</b></a>
+                    <br />@Html.DisplayFor(modelItem => item.PostTime)
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

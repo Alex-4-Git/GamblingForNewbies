@@ -1,0 +1,126 @@
+﻿@model IEnumerable<GamblingNewbies.Models.Post>
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.ReplyCreate = "/Topic/Post/" + ViewBag.TopicID;
+    ViewBag.User= "UserId=" + @User.Identity.GetUserId();
+}
+
+<style>
+    #divheader {
+        height: 70px;
+        background-position:center;
+        background-repeat:no-repeat;
+    }
+    textarea {
+        resize: none;
+        width: 1000px;
+        height: 100px;
+        max-width: 100%;
+        max-height: 50%;
+    }
+    td.user {
+        width: 25%;
+        font-size:small;
+        color:black;
+        margin-left:10px;
+    }
+    #forumcontainer {
+        background-color: rgba(154, 155, 171, 0.9);
+        color: black;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 10px;
+        width:80%;
+        margin-left:10%;
+    }
+
+    #forumheading {
+        padding-left: 10px;
+        color: white;
+    }
+    #forumtable {
+        padding: 20px;
+        padding-left: 10%;
+        padding-right: 10%;
+        color: rgba(0, 0, 0, 0.6);
+    }
+    .btn.btn-primary {
+        background-color: rgba(92, 92, 126, 1);
+        color: black;
+        border-color: black;
+    }
+    .btn.btn-primary:hover {
+        background-color: rgba(50, 20, 61, 1);
+        color: white;
+        border-color: white;
+    }
+    a.btn.btn-primary.btn-lg {
+        background-color: rgba(92, 92, 126, 1);
+        color: black;
+        border-color: black;
+    }
+    a.btn.btn-primary.btn-lg:hover {
+        background-color: rgba(50, 20, 61, 1);
+        color: white;
+        border-color: white;
+    }
+    a {
+        color: white;
+    }
+        a:hover {
+            color: #563d7c;
+            text-underline-position: left;
+            text-decoration: none;
+        }
+        h2 {
+            margin-top: 0px;
+            padding-top: 0px;
+        }
+</style>
+
+<div id="divheader"></div>
+<div id="forumcontainer">
+<div id="topofpage">
+    <a href="topofpage"></a></div>
+<div id="headers">
+    <h2><b>@ViewBag.Title</b></h2>
+    <h5>&#8617; Return to @Html.ActionLink((string)@ViewBag.ParentSectName, "Section", "Forum", new { id = @ViewBag.ParentSectID }, null)</h5>
+</div>
+<div id="clickreply">
+    <p><a href="#endoflist" class="btn btn-default">Go to Reply</a></p>
+</div>
+<div id="tablediv">
+<table class="table table-bordered">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="user">
+                <b><a href="/Profile/DearUser/@Html.DisplayFor(modelItem => item.UserID)">@Html.DisplayFor(modelItem => item.UserID)</a></b>
+                <br />@Html.DisplayFor(modelItem => item.ReplyTime)
+            </td>
+            <td style="font-size:small;color:black;">
+                @Html.DisplayFor(modelItem => item.Text)
+            </td>
+        </tr>
+    }
+
+</table>
+    <div style="text-align: right"><a href="#topofpage">^ Top of Page ^</a></div>
+</div>
+
+<div id="endoflist"><a href="endoflist"></a>
+    <center>
+        <font color="red">@ViewBag.MessageLabel</font>
+        @using (Html.BeginForm("Post", "Thread", new { ThreadId = @ViewBag.TopicID, UserId = @User.Identity.GetUserId() }, FormMethod.Post, null))
+        {
+            <p>
+                A penny for your thoughts?
+                <br /> @Html.TextArea("reply_text")
+                <input type="hidden" name="ThreadId" value=@ViewBag.TopicId />
+                <input type="hidden" name="UserId" value=@User.Identity.GetUserId() />
+                <br /><input type="submit" class="btn btn-primary" value="Submit Reply" />
+            </p>
+        }
+    </center>
+</div>
+</div>

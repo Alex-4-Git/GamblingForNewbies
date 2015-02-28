@@ -1,0 +1,92 @@
+﻿@using Microsoft.AspNet.Identity
+
+@{
+    ViewBag.Title = "NewGame";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    #forumcontainer {
+        background-color: rgba(154, 155, 171, 0.9);
+        color: black;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 10px;
+        width:60%;
+        margin-left:20%;
+    }
+
+    #forumheading {
+        padding-left: 10px;
+        color: white;
+    }
+
+    #forumtable {
+        padding: 20px;
+        padding-left: 10%;
+        padding-right: 10%;
+        color: black;
+    }
+
+    div#spacingprofile {
+        height: 70px;
+    }
+
+    .btn.btn-primary {
+        background-color: rgba(92, 92, 126, 1);
+        color: black;
+        border-color: black;
+    }
+
+        .btn.btn-primary:hover {
+            background-color: rgba(50, 20, 61, 1);
+            color: white;
+            border-color: white;
+        }
+
+    a#forumcontainer {
+        color: #563d7c;
+        font-weight: bold;
+    }
+
+    a:hover {
+        color: rgba(192, 194, 228, 1);
+        text-underline-position: left;
+        text-decoration: none;
+    }
+
+    tr td {
+        align-content: center;
+        text-align: center;
+    }
+
+    textarea {
+        resize: none;
+        width: 300px;
+        height: 25px;
+        max-width: 100%;
+        max-height: 50%;
+    }
+
+    b {
+        color: white;
+    }
+</style>
+<div id="spacingprofile"></div>
+<div id="forumcontainer"><center>
+    <h2><b>Create a New Game</b></h2>
+    <font color="red">@ViewBag.MessageLabel</font>
+    @using (Html.BeginForm("PostNewGame", "Game", new { username = User.Identity.GetUserName() }, FormMethod.Post, null))
+    {
+            <h4>Game Title:</h4>
+            <textarea name="title" class="title"></textarea>
+            <h4>Betting Amount:</h4>
+            @Html.TextArea("amount", new { @class = "amount" })
+            <font color="red">@ViewBag.BetAmount</font>
+            <font color="red">@ViewBag.BetAmount1</font>
+            <h4>Reserve game for another user (*optional):</h4>
+            @Html.TextArea("reserve", new { @class = "title" })
+            <font color="red">@ViewBag.MessageLabel1</font>
+            <br /><br /><input type="submit" value="Submit" />
+    }
+</center>
+</div>

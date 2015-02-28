@@ -1,0 +1,172 @@
+﻿@model GamblingNewbies.Models.Table
+@using Microsoft.AspNet.Identity
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.getOppURL = "/Table/GetOpponentStatus/" + @ViewBag.TableID;
+    ViewBag.getResultURL = "/Table/Result/" + @ViewBag.TableID;
+    ViewBag.DeleteURL = "/Table/Delete/" + @ViewBag.TableID;
+    ViewBag.LeaveURL = "/Table/Leave/" + @ViewBag.TableID;
+}
+@helper ViewHelper(int? status)
+{
+    for (int i = 1; i <= 3; i++)
+    {
+        if (status == 0)
+        {
+            string imgstr = "/Content/rrps" + @i + ".png";
+            <div class="rpsoption">
+                <button type="submit" name="option" value="@i" class="imgButt"><img src=@imgstr width="100px" height="100px" /></button>
+            </div>
+        }
+        else if (status == i)
+        {
+            string imgstr = "/Content/rrps" + @i + ".png";
+            <div class="rpsoption"><img src=@imgstr width="100px" height="100px" /></div>
+        }
+        else
+        {
+            string imgstr = "/Content/rrps" + @i + ".png";
+            <div class="rpsoption rpsoptionoff"><img src=@imgstr width="100px" height="100px" /></div>
+        }
+    }
+}
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    $(document).ready(checkuser);
+    function checkuser() {
+        $("#button").click(function () {
+            $.ajax({
+                url: "@ViewBag.getOppURL",
+                type: "get",
+                success: function (responseText) {
+                    
+                    var opphtml = '<font color=red>';
+                    if (responseText == "invalid") {
+                        opphtml = opphtml + "This seems to be an invalid table. Please return to Gambling Hall.";
+                    } else if (responseText == "opponent") {
+                        opphtml = opphtml + "You don't seem to have an opponent yet.";
+                    } else if (responseText == "choose") {
+                        opphtml = opphtml + "You need to make a choice first!";
+                    } else if (responseText == "wait") {
+                        opphtml = opphtml + "Your opponent hasn't made his/her choice yet.";
+                    }
+                    opphtml = opphtml + "</font>";
+                    if (responseText == "ok") {
+                        @*opphtml = '<a class="btn btn-default" href="@ViewBag.getResultURL">Did you win? &raquo;</a>';*@
+                        location.href = "@ViewBag.getResultURL";
+                    }
+                    document.getElementById("opponentstatus").innerHTML = opphtml;
+                }
+            })
+        });
+    }
+</script>
+
+
+
+<style>
+    #forumcontainer {
+        background-color: rgba(154, 155, 171, 0.9);
+        color: black;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 10px;
+        margin-top:70px;
+        width:70%;
+        margin-left:15%;
+    }
+
+    #forumheading {
+        padding-left: 10px;
+        color: white;
+    }
+
+    #forumtable {
+        padding: 20px;
+        padding-left: 10%;
+        padding-right: 10%;
+        color: black;
+    }
+
+    div#spacingprofile {
+        height: 20px;
+    }
+
+    .btn.btn-primary {
+        background-color: rgba(92, 92, 126, 1);
+        color: black;
+        border-color: black;
+    }
+
+        .btn.btn-primary:hover {
+            background-color: rgba(50, 20, 61, 1);
+            color: white;
+            border-color: white;
+        }
+
+    a#forumcontainer {
+        color: #563d7c;
+        font-weight: bold;
+    }
+
+    a:hover {
+        color: rgba(192, 194, 228, 1);
+        text-underline-position: left;
+        text-decoration: none;
+    }
+
+    tr td {
+        align-content: center;
+        text-align: center;
+    }
+
+    textarea {
+        resize: none;
+        width: 300px;
+        height: 25px;
+        max-width: 100%;
+        max-height: 50%;
+    }
+
+    b {
+        color: white;
+    }
+</style>
+
+<head>
+    <link href="~/Content/tableIndexStyle.css" rel="stylesheet" />
+    <title>@Model.Name</title>
+</head>
+<div id="forumcontainer" style="padding-bottom:50px;">
+    <div id="container">
+        <div id="centered">
+            <h2><b>@Model.Name</b></h2>
+            <h4>Are you ready, @User.Identity.Name?</h4>
+
+            <h5><b>Your choices:</b></h5>
+            <div align="center">
+                <div class="rps">
+                    @using (Html.BeginForm("Index", "Table", new { id = @Model.ID }, FormMethod.Post, null))
+                    {
+                        @Html.Raw((ViewHelper(ViewBag.Choice)))
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="centered2" align="center">
+        <p><font color="red">@ViewBag.ErrorMessage</font></p>
+    </div>
+    <div id="centered2" align="center">
+        
+            <p><input type="button" id="button" class="btn btn-primary btn-lg" value="Play it!" /></p>
+        <div id="opponentstatus">
+        </div>
+    </div>
+    <div id="righttable">
+        <a class="btn btn-danger" href="@ViewBag.DeleteURL">Delete Game</a>
+    </div>
+</div>

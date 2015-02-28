@@ -1,0 +1,36 @@
+﻿/*body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    background-image:url(7b9d9d0bbeccc8b79eb70ae67c147a35.jpg);
+    background-attachment:fixed;
+    background-color:black;
+    color: rgba(0, 0, 0, 0.8);
+}*/
+
+ body {
+        padding-top: 5px;
+        padding-bottom: 20px;
+        background-image: url("/Content/Rock_Paper_Scissor_Hold.jpg");
+        background-position: 50% 10%;
+        background-color: rgba(0, 0, 0,1);
+        background-repeat: no-repeat;
+        /*background-attachment:fixed;*/
+        color: rgba(255, 255, 255, 0.8);
+    }
+div {
+    /*background-color:white;*/
+    /*opacity: 0.9;*/
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    /*max-width: 280px;*/
+}

@@ -1,0 +1,137 @@
+﻿@model IEnumerable<GamblingNewbies.Models.Message>
+@using Microsoft.AspNet.Identity
+
+@{
+    ViewBag.Title = "DearUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    #profilecontainer {
+        background-color: aqua;
+    }
+
+    section {
+        width: 80%;
+        /*height: 200px;*/
+        /*background: aqua;*/
+        display: table;
+        margin: auto;
+        padding: 10px;
+        padding-top:70px;
+        border-spacing: 10px;
+        color:black;
+    }
+
+    div#profileleft {
+        width: 25%;
+        /*height: 200px;*/
+        display: table-cell;
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 10px;
+        border-radius: 6px;
+    }
+
+    div#profileright {
+        width: 65%;
+        display: table-cell;
+        margin-top: 0px;
+        /*height: 200px;*/
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 10px;
+        vertical-align: top;
+        border-radius:6px;
+        color:black;
+    }
+
+    textarea {
+        resize: none;
+        position: relative;
+        /*margin: 10px 10px 10px 10px;*/
+        width: 90%;
+        height: 90%;
+        max-width: 100%;
+    }
+
+    div#profilemessage {
+        vertical-align: top;
+        margin-top: 0px;
+        padding-top: 0px;
+    }
+
+    div#spacingprofile {
+        height: 20px;
+    }
+    div#profilescores {
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+        .btn.btn-primary {
+        background-color: rgba(92, 92, 126, 1);
+        color: black;
+        border-color: black;
+    }
+
+        .btn.btn-primary:hover {
+            background-color: rgba(50, 20, 61, 1);
+            color: white;
+            border-color: white;
+        }
+        .table.table-hover {
+            color:black;
+        }
+</style>
+
+<section>
+    <div id="profileleft" align="center">
+        <h2><b>@ViewBag.name</b></h2>
+        <p>@ViewBag.userDescription</p>
+        @if (ViewBag.isCurrentUser == true)
+        {
+            <a href="/Profile/EditUserDescription?username=@ViewBag.name" class="btn btn-primary btn-sm">Edit your Bio!</a>
+        }
+        <br />
+        <div id="spacingprofile"></div>
+        <div id="profilescores">
+            <p>
+                <font size="3">
+                    <b>Coins:</b> @ViewBag.coin
+                    <br /><b>Win:</b> @ViewBag.winTimes
+                    <br /><b>Loss:</b> @ViewBag.lossTimes
+                    <br /><b>Rank:</b> @ViewBag.userRank
+                </font>
+            </p>
+        </div>
+    </div>
+    <div id="profileright">
+        <div id="profilemessage">
+            <h5><font color="#141466">Leave <b>@ViewBag.name</b> a message!</font></h5>
+            <font color="red">@ViewBag.warning</font>
+            <font color="green">@ViewBag.message</font>
+            @using (Html.BeginForm("PostNewMessage", "Profile", new { user_name = ViewBag.name }, FormMethod.Post, null))
+            {
+                <p>
+                    @Html.TextArea("message", new { @class = "title" })
+                    <input type="submit" class="btn btn-primary" value="Post" />
+                </p>
+            }
+        </div>
+        <div id="spacingprofile"></div>
+        <div>
+            <h4><font color="#141466"><b>Past Messages</b></font></h4>
+            <table class="table table-hover">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <p style="font-size:small;">@Html.DisplayFor(modelItem => item.Text)</p>
+                            <p style="font-size:smaller">@Html.ActionLink(item.PostUserName, "DearUser", "Profile", new { id = item.PostUserName }, null) on @Html.DisplayFor(modelItem => item.ReplyTime)</p>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</section>
+
+
+

@@ -1,0 +1,121 @@
+﻿@model GamblingNewbies.Models.Table
+@using Microsoft.AspNet.Identity
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<style>
+    #forumcontainer {
+        background-color: rgba(154, 155, 171, 0.9);
+        color: black;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 10px;
+               margin-top:70px;
+        width:70%;
+        margin-left:15%;
+    }
+
+    #forumheading {
+        padding-left: 10px;
+        color: white;
+    }
+
+    #forumtable {
+        padding: 20px;
+        padding-left: 10%;
+        padding-right: 10%;
+        color: black;
+ 
+    }
+
+    div#spacingprofile {
+        height: 20px;
+    }
+
+    .btn.btn-primary {
+        background-color: rgba(92, 92, 126, 1);
+        color: black;
+        border-color: black;
+    }
+
+        .btn.btn-primary:hover {
+            background-color: rgba(50, 20, 61, 1);
+            color: white;
+            border-color: white;
+        }
+
+    a#forumcontainer {
+        color: #563d7c;
+        font-weight: bold;
+    }
+
+    a:hover {
+        color: rgba(192, 194, 228, 1);
+        text-underline-position: left;
+        text-decoration: none;
+    }
+    b {
+        color: white;
+    }
+</style>
+@helper WinHelper()
+{
+    if (@Model.Winner != "")
+    {
+        <h1>winner: <b>@Model.Winner</b></h1>
+    }
+}
+
+@helper ImgHelper(int? choice)
+{
+    if (choice == 1)
+    {
+        <img src="/Content/rrps1.png" width="100px" height="100px" />
+    }
+    else if (choice == 2)
+    {
+        <img src="/Content/rrps2.png" width="100px" height="100px" />
+    }
+    else if (choice == 3)
+    {
+        <img src="/Content/rrps3.png" width="100px" height="100px" />
+    }
+}
+@helper HeaderHelper()
+{
+    if ((ViewBag.PersonalMessage).Equals("Sorry, you lost!")) {
+       <img src="/Content/catexplosion.gif" />
+    }
+    else if ((ViewBag.PersonalMessage).Equals("It's a Tie!"))
+    {
+    <img src="/Content/catjump.gif" />
+    }
+    else if ((ViewBag.PersonalMessage).Equals("And the results are in!"))
+    {
+    <img src="/Content/scaredpanda.gif" />
+    }
+    else {
+        <img src="/Content/redpanda.gif" />
+    }
+}
+
+<div id="forumcontainer" align="center">
+    <h2>@ViewBag.PersonalMessage</h2>
+    <p>@Html.Raw(HeaderHelper())</p>
+    <table class="table" align="center" style="font-size:2em;">
+        <tr>
+            <td align="right" style="width:40%"><b>@Model.Username1</b></td>
+            <td align="center" style="width:20%">-vs-</td>
+            <td align="left" style="width:40%"><b>@Model.Username2</b></td>
+        </tr>
+        <tr>
+            <td align="right" style="width:40%">@Html.Raw(ImgHelper(@Model.Choice1))</td>
+            <td style="width:20%"></td>
+            <td align="left" style="width:40%">@Html.Raw(ImgHelper(@Model.Choice2))</td>
+        </tr>
+    </table>
+    @Html.Raw(WinHelper())
+
+</div>
+

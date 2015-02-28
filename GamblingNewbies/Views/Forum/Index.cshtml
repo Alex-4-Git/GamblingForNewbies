@@ -1,0 +1,73 @@
+﻿@model IEnumerable<GamblingNewbies.Models.Section>
+
+@{
+    ViewBag.Title = "Forum";
+}
+
+<style>
+  
+        #divheader {
+        height: 400px;
+        
+        background-position:center;
+        background-repeat:no-repeat;
+    }
+    #forumcontainer {
+        background-color: rgba(154, 155, 171, 0.7);
+        color: black;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 10px;
+        width: 70%;
+        margin-left:15%;
+    }
+
+    #forumheading {
+        color: white;
+    }
+
+    #forumtable {
+        padding: 20px;
+        padding-left: 10%;
+        padding-right: 10%;
+        color: black;
+        vertical-align:top;
+        margin-top:0px;
+                padding-top:0px;
+    }
+
+    a {
+        color: white;
+    }
+
+        a:hover {
+            color: #563d7c;
+            text-underline-position: left;
+            text-decoration: none;
+        }
+
+    tr td {
+        align-content: center;
+        text-align: center;
+    }
+</style>
+<body>
+    <div id="divheader"></div>
+    <div id="forumcontainer">
+        <center>
+            <h2><b>Welcome to the Forum</b></h2>
+            <h5>Where we will lay all your worries to rest...</h5>
+            <hr /><hr />
+            <div id="forumtable">
+                @foreach (var item in Model)
+                {
+                    <h4><b>@Html.ActionLink(item.Name, "Section", new { id = item.ID })</b></h4>
+                    <hr />
+                }
+
+                </table>
+            </div>
+        </center>
+    </div>
+
+</body>

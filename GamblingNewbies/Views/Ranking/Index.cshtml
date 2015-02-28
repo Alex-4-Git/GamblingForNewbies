@@ -1,0 +1,133 @@
+﻿@model IEnumerable<GamblingNewbies.Models.User>
+@using Microsoft.AspNet.Identity
+
+@{
+    ViewBag.Title = "Ranking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 1;
+    int rank = 0;
+}
+
+<style>
+
+    #divheader 
+    {
+        height: 400px;
+        background-position:center;
+        background-repeat:no-repeat;
+    }
+
+    td.user {
+        width: 25%;
+    }
+
+    #forumcontainer {
+        
+        background-color: rgba(154, 155, 171, 0.7);
+        color: black;
+        padding: 20px;
+        border-radius: 10px;
+        margin-left: 15%;
+        width: 70%;
+
+    }
+
+    #forumheading {
+        padding-left: 10px;
+        color: white;
+    }
+
+    #forumtable {
+        padding: 20px;
+        padding-left: 10%;
+        padding-right: 10%;
+        color: rgba(0, 0, 0, 0.6);
+    }
+
+    .btn.btn-primary {
+        background-color: rgba(92, 92, 126, 1);
+        color: black;
+        border-color: black;
+    }
+
+        .btn.btn-primary:hover {
+            background-color: rgba(50, 20, 61, 1);
+            color: white;
+            border-color: white;
+        }
+
+    a.btn.btn-primary.btn-lg {
+        background-color: rgba(92, 92, 126, 1);
+        color: black;
+        border-color: black;
+    }
+
+        a.btn.btn-primary.btn-lg:hover {
+            background-color: rgba(50, 20, 61, 1);
+            color: white;
+            border-color: white;
+        }
+
+    a {
+        color: black;
+    }
+
+        a:hover {
+            color: #563d7c;
+            text-underline-position: left;
+            text-decoration: none;
+        }
+</style>
+
+
+
+<div id="divheader"></div>
+<div id="forumcontainer">
+    <center><h2><b>Rankings</b></h2></center>
+    <div id="forumtable">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        Rank
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Username)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Coins)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    string un = item.Username;
+                    <tr>
+                        <td>
+                            @i
+                        </td>
+                        <td>
+                            <b>@Html.ActionLink(un, "DearUser", "Profile", new { id = un }, null)</b>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Coins)
+                        </td>
+                    </tr>
+                    i++;
+                }
+                @{
+                    string my = "hidden;";
+                    if (ViewBag.UserRank != 0) { rank = ViewBag.UserRank; }
+                    if (rank != 0) { my = "visible"; }
+                }
+                <p style="color: white; visibility: @my">Your rank : <b>@rank</b></p>
+
+            </tbody>
+        </table>
+    </div>
+    <center>
+        <b>@Html.ActionLink("Next Page", "Page", new { id = 2 })</b>
+    </center>
+</div>

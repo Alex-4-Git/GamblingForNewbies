@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "EditUserDescription";
+}
+
+<style>
+    textarea.text {
+        resize: none;
+        /*width: 1000px;
+        height: 400px;*/
+        max-width: 100%;
+        width:80%;
+        max-height: 50%;
+        height: 150px;
+    }
+    #editspacing {
+        height: 10px;
+    }
+        div#spacingprofile {
+        height: 70px;
+    }
+        center {
+            background-color: rgba(255, 255, 255, 0.8);
+            color: black;
+            margin: 10px;
+            padding: 20px;
+            width: 70%;
+            margin-left: 15%;
+            border-radius: 15px;
+        }
+</style>
+<div id="spacingprofile"></div>
+<center>
+    <h3><b>Type away, @ViewBag.username!</b></h3>
+    <h5>(Just don't exceed 200 characters)</h5>
+
+    <font color="red">@ViewBag.MessageLabel</font>
+    @using (Html.BeginForm("UpdateUserDescription", "Profile", new { username = @ViewBag.username }, FormMethod.Post, null))
+    {
+        <p>
+            @Html.TextArea("text", new { @class = "text" }) <br />
+            <div id="editspacing"></div>
+            <input type="submit" class="btn btn-primary" value="Edit away!" />
+        </p>
+    }
+
+</center>

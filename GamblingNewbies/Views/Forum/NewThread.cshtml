@@ -1,0 +1,92 @@
+﻿@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Start a New Thread";
+}
+
+<style>
+    form {
+        padding: 0px;
+        margin: 0px;
+    }
+    #forumcontainer {
+        background-color: rgba(154, 155, 171, 0.8);
+        color: black;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 10px;
+        width:70%;
+        margin-left:15%;
+    }
+    #forumheading {
+        padding-left: 10px;
+        color: white;
+    }
+    #forumtable {
+        padding: 20px;
+        padding-left: 10%;
+        padding-right: 10%;
+        color: black;
+    }
+    div#spacingprofile {
+        height: 70px;
+    }
+    .btn.btn-primary {
+        background-color: rgba(92, 92, 126, 1);
+        color: black;
+        border-color: black;
+    }
+    .btn.btn-primary:hover {
+        background-color: rgba(50, 20, 61, 1);
+        color: white;
+        border-color: white;
+    }
+    a#forumcontainer {
+        color: #563d7c;
+        font-weight: bold;
+    }
+        a:hover {
+            color: rgba(192, 194, 228, 1);
+            text-underline-position: left;
+            text-decoration: none;
+        }
+    tr td {
+        align-content: center;
+        text-align: center;
+    }
+    textarea.title {
+        resize: none;
+        width: 600px;
+        height: 50px;
+        max-width: 100%;
+        max-height: 50%;
+    }
+    textarea.text {
+        resize: none;
+        width: 600px;
+        height: 300px;
+        max-width: 100%;
+        max-height: 50%;
+    }
+    b {
+        color: white;
+    }
+
+</style>
+<div id="spacingprofile"></div>
+<div id="forumcontainer">
+    <center>
+        <h3>@ViewBag.Title</h3>
+        <font color="red">@ViewBag.MessageLabel</font>
+        @using (Html.BeginForm("PostNewThread", "Forum", new { section_id = @ViewBag.section_id, user_id = @User.Identity.GetUserId() }, FormMethod.Post, null))
+        {
+            <p>
+                <h4><b>Title:</b></h4>
+                @Html.TextArea("title", new { @class = "title" }) 
+                <h4><b>Text:</b></h4>
+                @Html.TextArea("text", new { @class = "text" }) <br />
+                <br /><input type="submit" class="btn btn-primary" value="Add it!" />
+            </p>
+        }
+
+    </center>
+</div>

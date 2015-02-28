@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Error";
+}
+<style>
+    center {
+        margin-top: 70px;
+        background-color: rgba(255, 255, 255, 0.7);
+        padding: 15px;
+        width: 70%;
+        margin-left:15%;
+        color: black;
+    }
+</style>
+<center>
+    <font color="red">
+        <h2><b>@ViewBag.Title @ViewBag.Message</b></h2>
+        <h3>Error! Error! Intruder Alert!</h3>
+    </font>
+    <p>
+        Hmm... you ended up here because you tried an invalid URL.
+        Hope you're not trying to hack us. :E
+    </p>
+</center>

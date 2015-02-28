@@ -1,0 +1,101 @@
+﻿@using Microsoft.AspNet.Identity
+
+@{
+    ViewBag.Title = "Home Page";
+    int i = 1;
+    string latestUser = ViewBag.LatestUser;
+}
+<style>
+
+    body {
+        padding-top: 50px;
+        padding-bottom: 20px;
+        background-image: url("/Content/Rock_Paper_Scissor_Hold.jpg");
+        background-position: 50% 5%;
+        background-color: rgba(0, 0, 0,1);
+        background-repeat: no-repeat;
+        /*background-attachment:fixed;*/
+        color: rgba(255, 255, 255, 0.8);
+    }
+        #divheader {
+        height: 400px;
+    }
+    .jumbotron {
+        background-color: rgba(66, 66, 71, 0.7);
+        width: 50%;
+        color: white;
+    }
+   
+    .lead {
+        color: white;
+    }
+    a.btn.btn-primary.btn-lg {
+        background-color: rgba(92, 92, 126, 1);
+        color: white;
+        border-color: black;
+    }
+    a.btn.btn-primary.btn-lg:hover {
+        background-color: rgba(50, 20, 61, 1);
+        color: white;
+        border-color: white;
+    }
+    div.row {
+        padding: 20px;
+        background-color: rgba(154, 155, 171, 0.7);
+        border-radius: 10px;
+        margin: 20px;
+        width:70%;
+    }
+    a {
+        color: white;
+    }
+
+</style>
+
+<center>
+    <div id="divheader"></div>
+
+    <div class="jumbotron">
+        <h3>@ViewBag.RegisteredMessage</h3>
+        <h1><b>Gambling for Newbies</b></h1>
+        <p class="lead">
+                Have you ever wanted to play rock-paper-scissors over the World Wide Web?
+                Against mysterious opponents?
+                No? Well too bad, because that's what this web application is all about.
+        </p>
+        <p><a href="~/Game" class="btn btn-primary btn-lg">Go Play Now!</a></p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <h2><b>Latest Announcements</b></h2>
+            <p>Read up on the latest!</p>
+                <h3><font color="white"><strong>@ViewBag.LatestTitle</strong></font></h3>
+                <h5>by <a href="/Profile/DearUser/@ViewBag.LatestUser"><b>@ViewBag.LatestUser</b></a></h5>
+                <p><font size="3">@ViewBag.LatestMessage</font></p>
+            <p><a class="btn btn-default" href="~/Forum/Section/1">More Announcements &raquo;</a></p>
+        </div>
+
+        <div class="col-md-4">
+            <h2><b>Top Ranks</b></h2>
+            <p>Can you make it into the top 3?</p>
+            <blockquote>
+                <table class="table">
+                    @foreach (var x in ViewBag.UserRankList)
+                    {
+                        string un = x.Username;
+                        <tr>
+                            <td>@i</td>
+                            <td>
+                                @Html.ActionLink(un, "DearUser", "Profile", new { id = un }, null)
+                            </td>
+                        </tr>
+                        i++;
+                    }
+                </table>
+            </blockquote>
+            <p><a class="btn btn-default" href="~/Ranking/Index/@User.Identity.GetUserName()">Ranking &raquo;</a></p>
+
+        </div>
+    </div>
+</center>

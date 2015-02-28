@@ -1,0 +1,86 @@
+﻿
+.gamblingHallTables {
+    vertical-align: top;
+    padding: 20px;
+}
+
+.gamblingHallUsers {
+    vertical-align: top;
+    padding: 5px;
+    font-size: 16px;
+    font-family: Verdana;
+    font-weight: bold;
+}
+
+.UsersTable {
+    font-size: 14px;
+    font-weight: normal;
+    color: plum;
+}
+
+.clearfix:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+
+.clearfix {
+    display: inline-block;
+}
+
+div#containertable {
+    overflow: hidden;
+    height: 1500px;
+    width:90%;
+    padding-left:0%;
+    margin:0px;
+}
+
+div#outertable {
+    width: 20%;
+    padding: 0px;
+    border: 5px solid #C0C0C0;
+    float: left;
+    height: 1500px;
+}
+
+div#innertable {
+    height: 1500px;
+    float: right;
+    width: 80%;
+    padding: 10px;
+    border: 5px solid #C0C0C0;
+    border-left-color: white;
+    border-spacing: 0.1em;
+}
+
+div#tableinfo {
+    padding: 10px;
+    padding-top:0px;
+}
+
+div.tableinfo {
+    padding: 10px;
+    padding-bottom:0px;
+}
+
+td.userNameWidth {
+    width: 25%;
+    text-align:left;
+    height:30px;
+}
+
+td.titleNameWidth {
+    width: 30%;
+    text-align:left;
+    height:30px;
+}
+
+td.userJoinWidth {
+    width: 15%;
+    text-align:center;
+    height:30px;
+}

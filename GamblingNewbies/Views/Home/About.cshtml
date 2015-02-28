@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "Everything you [didn't] want to know about the creators...";
+}
+<style>
+    body{
+        background-image:none;
+    }
+
+    #divheader {
+        height: 300px;
+        /*background-image: url('/Content/Aboutgroup.JPG');*/
+        background-position:center;
+        background-repeat:no-repeat;
+        padding-top:50px;
+    }
+    #aboutcontainer {
+        background-color: rgba(154, 155, 171, 0.7);
+        padding: 20px;
+        margin: 10px;
+        border-radius: 10px;
+        vertical-align: top;
+        width:70%;
+        margin-left:15%;
+    }
+    .aboutspacing {
+        height: 5px;
+    }
+    p {
+        width: 90%;
+    }
+    #dont {
+        padding: 0px;
+    }
+    b {
+        color: white;
+    }
+</style>
+<div id="divheader"><center><img src="/Content/catglasses.gif" /></center></div>
+<div id="aboutcontainer">
+    <center>
+        <h4><b>@ViewBag.Title</b></h4>
+        <p id="dont">
+            I don't know why you bothered venturing here. But allow us to introduce ourselves
+            since apparently you're <i>so</i> interested in us.
+        </p>
+
+        <div class="members">
+            <h3> ◆ <b>Pin Lu</b> ◆ </h3>
+            <p>Does a lot of things. Like go to the gym and play Hearthstone. 
+            Thinks he's the best player here.</p>
+
+            <div class="aboutspacing"></div>
+            <h3> ◆ <b>Vangie Shue</b> ◆ </h3>
+            <p>
+                The team whip-bearer person. Spends an exorbitant amount of time
+                on the Internet and is probably the source of all the 4am testing posts. Likes cats and pomeranians.
+            </p>
+
+            <div class="aboutspacing"></div>
+            <h3> ◆ <b>Xiaoyu Xu</b> ◆ </h3>
+            <p>This is Xiaoyu. I'm cool if anything because both my first and last name start with an X. Pretty cool huh?</p>
+
+            <div class="aboutspacing"></div>
+            <h3> ◆ <b>Chen Zhu</b> ◆ </h3>
+            <p>I play badminton. Then I played tennis. I also eat fruit. And steal all my company's Snapple.
+            <br /><img src="/Content/janecat.gif" /></p>
+        </div>
+    </center>
+</div>
